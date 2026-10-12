@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TypeQuest 冒險打字王</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="menu" class="wrap">
+  <div class="top">
+    <div class="logo d">Type<b>Quest</b> 冒險打字王</div>
+    <div class="xp"><div class="d" id="lv">Lv.1</div><div class="bar"><i id="xpb"></i></div><small id="xpt" style="color:var(--mu)"></small></div>
+  </div>
+  <div class="daily">
+    <div><div class="d" style="font-size:18px">今日任務</div><div id="dtxt" style="color:var(--mu)"></div></div>
+    <button class="btn" id="dbtn">開始任務</button>
+  </div>
+  <h2 class="d">世界地圖</h2>
+  <div class="path" id="map"></div><div id="drillw"></div>
+  <div class="cols">
+    <div><h2 class="d">成就徽章</h2><div class="pn badges" id="bds"></div></div>
+    <div><h2 class="d">裝備解鎖</h2><div class="pn">
+      <label>鍵盤音效<select id="sndS"></select></label>
+      <label>介面色彩<select id="thmS"></select></label>
+      <label>角色造型<select id="avS"></select></label>
+      <label>動態背景<select id="bgS"></select></label>
+      <label>頭銜<select id="ttS"></select></label>
+      <small style="color:var(--mu)">升級解鎖音效、色彩、造型與背景；達成成就可獲得頭銜。</small></div></div>
+  </div>
+  <p style="color:var(--mu);margin-top:20px;font-size:14px">進度會儲存在這台裝置的瀏覽器中。</p>
+</div>
+
+<div id="game" class="hide">
+  <div class="hud">
+    <div><div class="d" id="gname"></div><div class="bar hp"><i id="ehp" style="width:100%"></i></div></div>
+    <div class="stats"><span id="wpm">0<small>WPM</small></span><span id="acc">100<small>%</small></span><span id="cmb">0<small>連擊</small></span></div>
+    <div class="en"><span id="php"></span><span id="tmr"></span><button class="btn g" id="quit" style="padding:2px 12px">離開</button></div>
+  </div>
+  <div id="field"><div class="sc" id="scA"></div><div class="sc" id="scB"></div><div id="sent" class="hide"></div></div>
+  <div id="hint"></div>
+  <div class="kb" id="kb"></div>
+</div>
+<div id="res" class="hide"><div class="pn" id="rbox"></div></div>
+
+<script src="script.js"></script>
+</body>
+</html>
