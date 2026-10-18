@@ -59,8 +59,10 @@ repeating-linear-gradient(0deg,#ffffff06 0 1px,transparent 1px 28px)}
 .w.act{border-color:var(--ac);box-shadow:0 0 14px var(--ac)}
 .w .dn{color:var(--ac)}
 .w .nx{color:#06121a;background:var(--am);border-radius:2px}
-.w.zap{animation:zap .25s forwards}
-@keyframes zap{to{opacity:0;transform:translateX(-50%) scale(1.4);filter:blur(3px)}}
+.w.zap{animation:zap .35s forwards}
+@keyframes zap{0%{background:var(--ac);box-shadow:0 0 0 0 var(--ac)}100%{opacity:0;transform:translateX(-50%) scale(1.5);filter:blur(3px);background:var(--ac);box-shadow:0 0 26px 10px var(--ac)}}
+.pt{position:absolute;z-index:3;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--ac);border:1px solid #3b261499;pointer-events:none;animation:pt .45s ease-out forwards}
+@keyframes pt{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
 #field.hurt{animation:sh .25s}
 @keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 #sent{z-index:2;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:"Chakra Petch",monospace;font-size:clamp(20px,4vw,32px);line-height:1.7}
@@ -143,6 +145,11 @@ body.mapbg{background:#3a2412 radial-gradient(circle at 20% 10%,#5a3a1e 0,transp
 @keyframes pul{to{opacity:.32}}
 #field[data-bg=scan]::before{inset:auto 0 auto 0;top:-60px;height:60px;background:linear-gradient(180deg,transparent,var(--ac),transparent);opacity:.16;animation:scn 4s linear infinite}
 @keyframes scn{to{top:100%}}
+#field[data-bg=rain]::before{background:repeating-linear-gradient(90deg,var(--ink,#0f6b75) 0 2px,transparent 2px 34px);opacity:.5}
+#field[data-bg=pulse]::before{background:radial-gradient(circle at 50% 100%,var(--ink,#0f6b75),transparent 72%);opacity:.22;animation:pul2 3s ease-in-out infinite alternate}
+@keyframes pul2{to{opacity:.55}}
+#field[data-bg=scan]::before{top:-80px;height:80px;background:linear-gradient(180deg,transparent,var(--ink,#0f6b75),transparent);opacity:.4}
+#field[data-bg=grid]::before{background:linear-gradient(var(--ink,#0f6b75) 1px,transparent 1px),linear-gradient(90deg,var(--ink,#0f6b75) 1px,transparent 1px);background-size:28px 28px;opacity:.3}
 body:not(.mapbg){background:#3a2412 radial-gradient(circle at 20% 10%,#5a3a1e 0,transparent 50%) fixed}
 #game,#res{--tx:#111;--mu:#333;--panel:#dcc38f;--line:#6b4a24;color:var(--tx)}
 #game .bar{background:#0002}
@@ -177,7 +184,7 @@ body,button,select,option,label,small,h1,h2,h3,.d,.logo b,#me,.btn,.btn.g,.bd,.b
 #game .btn.g,#res .btn.g{background:transparent;color:#3b2614!important}
 #game .w{background:#f6e7c4;border:2px solid #6b4a24;box-shadow:0 2px 0 #4d1f0b}
 #game .w.act{border-color:#8b3a1a;box-shadow:0 0 14px #8b3a1a}
-#game .w .dn,#game #sent .dn{color:#2f6b2f!important}
+#game .w .dn,#game #sent .dn{color:var(--ink,#0f6b75)!important;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
 #game .w .nx,#game #sent .nx{background:#8b3a1a;color:#f6e7c4!important}
 #game #sent .er{background:#e46a5a}
 #game .k{background:#f6e7c4;border:2px solid var(--kc,#4d1f0b)}
@@ -208,7 +215,7 @@ body,button,select,option,label,small,h1,h2,h3,.d,.logo b,#me,.btn,.btn.g,.bd,.b
 #menu .eq{display:flex;flex-direction:column}
 #menu .eq .pn{flex:1;display:flex;flex-direction:column}
 #menu .eq .pn small{margin-top:auto;padding-top:28px}
-@media(prefers-reduced-motion:reduce){.fi{animation:none}#scB{transition:none}#field::before{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.fi{animation:none}#scB{transition:none}#field::before{animation:none!important}.pt{display:none}}
 @media(prefers-reduced-motion:reduce){.w.zap,#field.hurt{animation:none}}
 </style>
 </head>
@@ -273,10 +280,10 @@ const ZONES=[
 {g:["#e4c8b0","#c49a86"],c:"#ff3d9a"},
 {g:["#ecc9b4","#cf9a8a"],c:"#ff3d9a"}];
 const SOUNDS=[["柔和 (Lv1)",1],["雷射 (Lv2)",2],["機械 (Lv3)",3],["電子琴 (Lv5)",5]];
-const THEMES=[["電光青 (Lv1)",1,"#3df0ff"],["霓虹粉 (Lv2)",2,"#ff3d9a"],["琥珀金 (Lv4)",4,"#ffc23d"],["病毒紫 (Lv6)",6,"#b58cff"]];
+const THEMES=[["電光青 (Lv1)",1,"#3df0ff","#0f6b75"],["霓虹粉 (Lv2)",2,"#ff3d9a","#b02060"],["琥珀金 (Lv4)",4,"#ffc23d","#8a5a00"],["病毒紫 (Lv6)",6,"#b58cff","#5b3fb0"]];
 const BADGES=[["閃電手指","單場 WPM 達 30","指尖閃電"],["零失誤大師","正確率 100% 通關","完美編譯者"],["連續登入 7 天","連續登入 7 天","不眠守護者"],["魔王殺手","擊敗未來賽博都市魔王","賽博終結者"],["弱點克服","完成錯題特訓","補丁工程師"],["疾風之手","單場 WPM 達 50","疾風駭客"],["連擊達人","單場連擊 50","連鎖反應"],["滿星收藏家","前五關全部三星","星光收藏家"],["單字獵人","累計擊破 200 個單字","詞彙獵人"],["初次入侵","第一次通關","見習駭客"],["連續登入 3 天","連續登入 3 天","常駐駭客"]];
 const AVS=[["🧑‍💻","新手",1],["🦊","狐面客",2],["🤖","機械體",3],["👾","像素魔",5],["🐉","賽博龍",7]];
-const BGS=[["暗黑格線","grid",1],["數據雨","rain",3],["霓虹脈衝","pulse",5],["掃描光束","scan",7]];
+const BGS=[["地圖方格","grid",1],["數據雨","rain",3],["霓虹脈衝","pulse",5],["掃描光束","scan",7]];
 function check(win,wpm,acc){const nw=[],B=(i,c)=>{if(c&&!S.badges[i]){S.badges[i]=1;nw.push(BADGES[i][0])}};
  if(win){B(0,wpm>=30);B(5,wpm>=50);B(1,acc===100&&G.hits>10);B(3,!!G.st.boss);B(4,G.i===-1);B(9,true)}
  B(6,G.best>=50);B(7,[0,1,2,3,4].every(i=>S.stars[i]===3));B(8,(S.words||0)>=200);B(10,S.streak>=3);B(2,S.streak>=7);return nw}
@@ -329,7 +336,7 @@ function renderMenu(){document.body.classList.add("mapbg");
  $("#bgS").innerHTML=BGS.map((x,i)=>`<option value="${i}" ${l<x[2]?"disabled":""}>${x[0]} (Lv${x[2]})</option>`).join("");$("#bgS").value=S.bg;
  $("#ttS").innerHTML='<option value="-1">新手駭客</option>'+BADGES.map((x,i)=>S.badges[i]?`<option value="${i}">${x[2]}</option>`:"").join("");$("#ttS").value=S.title;
  $("#field").dataset.bg=BGS[S.bg][1];
- document.documentElement.style.setProperty("--ac",THEMES[S.thm][2]);
+ document.documentElement.style.setProperty("--ac",THEMES[S.thm][2]);document.documentElement.style.setProperty("--ink",THEMES[S.thm][3]);
 }
 $("#sndS").onchange=e=>{S.snd=SOUNDS[e.target.value][1];save()};
 $("#avS").onchange=e=>{S.av=+e.target.value;save();renderMenu()};
@@ -436,8 +443,10 @@ function loop(t){if(!G||G.over)return;const dt=Math.min(.05,(t-G.last)/1000);G.l
    if(o.y>h-36){kill(o,false);G.life--;G.cmb=0;sfx("bad");const f=$("#field");f.classList.remove("hurt");void f.offsetWidth;f.classList.add("hurt");if(G.life<=0)return end(false)}}}
  upd();aim();raf=requestAnimationFrame(loop)}
 function aim(){if(G.st.boss||G.active)return;const o=[...G.ws].sort((a,b)=>b.y-a.y)[0],c=o?o.w[0]:null;if(c!==G.aimc){G.aimc=c;hintKey(c)}}
+function burst(o){const f=$("#field"),r=o.el.getBoundingClientRect(),fr=f.getBoundingClientRect(),cx=r.left-fr.left+r.width/2,cy=r.top-fr.top+r.height/2;
+ for(let i=0;i<10;i++){const p=document.createElement("i"),a=Math.PI*2*i/10+Math.random()*.4,d=34+Math.random()*30;p.className="pt";p.style.cssText=`left:${cx}px;top:${cy}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d}px`;f.appendChild(p);setTimeout(()=>p.remove(),500)}}
 function kill(o,hit){G.aimc=undefined;G.ws=G.ws.filter(x=>x!==o);if(G.active===o){G.active=null;hintKey(null)}
- if(hit){G.wd++;o.el.classList.add("zap");setTimeout(()=>o.el.remove(),250)}else o.el.remove()}
+ if(hit){G.wd++;burst(o);o.el.classList.add("zap");setTimeout(()=>o.el.remove(),350)}else o.el.remove()}
 function upd(){const el=G.t0?(performance.now()-G.t0)/60000:0,acc=G.hits+G.miss?Math.round(G.hits/(G.hits+G.miss)*100):100;
  G.wpm=el>.01?Math.round(G.hits/5/el):0;G.acc=acc;
  $("#wpm").firstChild.nodeValue=G.wpm;$("#acc").firstChild.nodeValue=acc;$("#cmb").firstChild.nodeValue=G.cmb;
